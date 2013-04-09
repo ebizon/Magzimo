@@ -1,0 +1,45 @@
+.home-body{
+	background: none repeat scroll 0 0 #9CA6AF;
+	font-family: georgia;
+	
+}
+.home-body a, .home-body a:hover{
+	color: #fff;
+	text-decoration: none;
+}
+.clear{
+	clear: both;
+}		
+.cover_image{
+	float: left;	
+	}	
+.cover_title{
+	float: left;		
+	margin-left:10px;
+	}	
+.landscape{
+	width:90%;
+	font-size: 18px;
+	margin: auto;
+	}
+.portrait{
+	width:85%;
+	font-size: 25px;
+margin: auto;
+	}
+.portrait .container{
+float: left;
+	width: 44%;
+	margin:17px;
+}
+.landscape .container{
+float: left;
+	width: 29%;
+	margin:13px;
+}
+.portrait .cover_image img{
+	width: 190px;
+}
+.landscape .cover_image img{
+	width: 150px;
+}

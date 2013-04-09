@@ -1,0 +1,96 @@
+<html><head>
+<link rel="stylesheet" type="text/css" href="style.css" />
+<script type="text/javascript" src="libs/config.js"></script>
+<script type="text/javascript" src="plugins/over-data/jquery.js"></script>
+<script>
+	var result = '';
+$(document).ready(function(){
+jQuery.extend({
+    getValues: function() {
+        var result = null;
+        $.ajax({
+            url: base_url+'/wordpress/?webservice_method=category',
+            type: 'get',
+            dataType: 'json',
+            async: false,
+            success: function(data) {
+               result = data;
+              
+            }
+        });
+       return result;
+    }
+});
+result = $.getValues();
+change_orientation();
+
+});	
+window.onorientationchange = function() {
+	change_orientation();		
+}
+function render_cat_html(col){
+	if(result.length > 0){
+		
+		var cat_html = '';
+		for(i=0;i<result.length;i++)
+		{
+			var parent_div_start = '';
+			var parent_div_end = '';			
+			
+			if(i%col == 0){
+				if(i == 0){
+					cat_html += '<div>';	
+				}
+				/*else if(i == (result.length - 1)){
+					cat_html += '<div class="clear"></div></div>';	
+				}*/
+				else{
+					cat_html += '<div class="clear"></div></div><div>';	
+				}
+							
+			}
+			if(orientation1 == 'portrait'){
+				cat_html += "<div class='container'><div class='cover_image' ><a href=index1.html?catid="+result[i].category_id+"><img src="+result[i].first_image+"></a></div><div class='cover_title'><a href=index1.html?catid="+result[i].category_id+">"+result[i].category_name+"</a></div></div>";
+			}else{
+				cat_html += "<div class='container'><div class='cover_image' ><a href=index1.html?catid="+result[i].category_id+"><img src="+result[i].second_image+"></a></div><div class='cover_title'><a href=index1.html?catid="+result[i].category_id+">"+result[i].category_name+"</a></div></div>";
+			}
+			if(i%col == 0){
+				if(i == (result.length - 1)){
+					cat_html += '<div class="clear"></div></div>';	
+				}
+			}
+			else if(i == (result.length - 1)){
+				cat_html += '<div class="clear"></div></div>';	
+			}
+		}
+		$('#cat').html(cat_html);
+	}
+}
+orientation1 = '';
+function change_orientation() {
+	var orientation = '';
+	var col = 2;
+	if (!isNaN(window.orientation)) {
+    	orientation = (window.orientation == 0 || window.orientation == 180) ? "portrait" : "landscape";
+    } else {
+   	    orientation = ($(window).width() < 980) ? "portrait" : "landscape";
+    }
+    
+    if(orientation == "portrait"){
+		col = 2;
+		//orientation = "landscape";
+	}else{
+		col = 3;
+		//orientation = "portrait";
+	}
+	$("#cat").removeClass('portrait landscape').addClass(orientation);
+	orientation1 = orientation;
+    render_cat_html(col);
+}
+</script>
+<body class="home-body">
+	<center><div id="cat">
+	
+	
+	</div></center>
+	</body>

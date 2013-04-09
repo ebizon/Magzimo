@@ -1,0 +1,29 @@
+.post_sorter {}
+
+.post_sorter .inline_field { width: 48px; text-align: right; }
+
+.post_sorter .icon_button
+{
+    display: inline-block;
+    position: relative;
+    top: -1px;
+    margin-right: 8px;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    background-image: url('../image/arrows.gif');
+    background-repeat: no-repeat;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+.post_sorter .icon_button.up { background-position: -311px -70px; }
+.post_sorter .icon_button.down { background-position: -260px -69px; }
+
+
+.post_sorter_form { margin-top: 48px; }
+.post_sorter_form .controller { margin-top: 24px; clear: both; }
+
+.post_sorter_form input[type="checkbox"], .post_sorter_form input[type="radio"]
+{
+    margin-right: 16px;
+}

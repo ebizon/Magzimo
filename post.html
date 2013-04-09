@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		
+		<script type="text/javascript" src="jquery.js"></script>
+	
+		<script>
+		QueryString = function () {
+ 		var query_string = {};
+		var query = window.location.search.substring(1);
+		var vars = query.split("&");
+		for (var i=0;i<vars.length;i++) {
+		var pair = vars[i].split("=");
+		if (typeof query_string[pair[0]] === "undefined") {
+		query_string[pair[0]] = pair[1];
+    	// If second entry with this name
+		} else if (typeof query_string[pair[0]] === "string") {
+		var arr = [ query_string[pair[0]], pair[1] ];
+		query_string[pair[0]] = arr;
+   		} else {
+		query_string[pair[0]].push(pair[1]);
+		}
+		} 
+		return query_string;
+		} ;
+		
+		</script>
+		<script>
+			$(document).ready(function(){
+			arg = QueryString().post_id;
+		url1 = 'http://localhost/wordpress/?webservice_method=post&post_id='+arg;
+	
+				$.ajax({
+				url: url1,
+				type: 'get',
+				dataType: 'json',
+				async: false,
+				success: function(data) {
+				result = data; 
+					
+				    if(data.response == 'SUCCESS')
+				    { category = '';
+						for(i=0;i<data.my.length;i++){
+							category += data.my[i].categories;
+						}
+					 $("<div style='font-size:20px;color:blue'/>").html((data.post_title)).appendTo("#post");
+					 $("<div style='font-size:15px;border:1px solid;border-radius:10px;width:400px;margin:10px;padding:10px;' />").html((data.post_content)).appendTo("#post");
+					$("<div style='font-size:15px;'/>").html('This entry was posted in <b>'+category+'</b> on '+(data.post_date)+'<br><br><hr>').appendTo("#post");
+               //$("#post").html(data.my[i].post_title);
+					
+				}else{
+					 $("<div style='font-size:20px;color:red'/>").html((data.response)).appendTo("#post");
+				}
+				
+                
+              
+            
+                //$("#simage").attr('src',data.second_image );
+              //alert((data[0].title));
+				}
+			});
+				});
+
+
+     	</script>
+	</head>
+	<body bgcolor=#D8D8D8>
+		<center><div id="screen" style="width:670px;height:100%;position:relative;">
+			<a href='index.html'><div id='cat' style='margin-top:50px;float:left'>Category Menu</div></a>		
+			</div>
+			<div id='post' style='width:450px;float:left'></div>
+			
+			</center>
+		
+	</body>
+</html>
+
